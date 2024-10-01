@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "storage-api"
+version = "0.1.0"
+description = ""
+authors = ["Jorique <guselnikovgeorgiy@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.0"
+uvicorn = "^0.31.0"
+sqlalchemy = "^2.0.35"
+asyncpg = "^0.29.0"
+pytest = "^8.3.3"
+alembic = "^1.13.3"
+pydantic-settings = "^2.5.2"
+ipython = "^8.27.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
