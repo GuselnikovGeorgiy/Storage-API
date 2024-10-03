@@ -3,7 +3,7 @@ from fastapi import Query
 
 
 class ProductSchema(BaseModel):
-    name: str = Field(title="Product name")
-    description: str = Field(title="Product description")
-    price: float = Field(title="Product price", gt=0)
-    available_stock: int = Field(title="Product available in stock", gt=0)
+    name: str = Field(title="Наименование товара")
+    description: str = Field(title="Описание товара")
+    price: float = Field(title="Цена", gt=0)
+    available_stock: int = Field(title="Количество товара на складе", gt=0)

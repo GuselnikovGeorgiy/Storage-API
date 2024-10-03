@@ -5,7 +5,7 @@ from app.products.router import router as products_router
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        title="Storage API",
+        title="API для управления складом",
         root_path="/api",
 
     )
