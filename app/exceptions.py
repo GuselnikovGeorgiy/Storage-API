@@ -21,4 +21,14 @@ class NotEnoughStockException(APIException):
 
 class NotFoundException(APIException):
     status_code = status.HTTP_404_NOT_FOUND
-    detail = "Page not found"
+    detail = "Not found"
+
+
+class IDNotFoundException(APIException):
+    status_code = status.HTTP_404_NOT_FOUND
+    detail = "ID not found"
+
+
+class SQLAlchemyException(APIException):
+    status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+    detail = "SQLAlchemy error"
