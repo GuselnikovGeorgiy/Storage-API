@@ -3,10 +3,10 @@ from fastapi import HTTPException, status
 
 class APIException(HTTPException):
     status_code = 500
-    detail = "Internal Server Error"
+    detail = "Internal server error"
 
-    def __init__(self, status_code: int, detail: str):
-        super().__init__(status_code=status_code, detail=detail)
+    def __init__(self):
+        super().__init__(status_code=self.status_code, detail=self.detail)
 
 
 class OutOfStockException(APIException):
