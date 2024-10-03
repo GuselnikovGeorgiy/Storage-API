@@ -11,4 +11,4 @@ class Products(Base):
     price: Mapped[float] = mapped_column(nullable=False)
     available_stock: Mapped[int] = mapped_column(nullable=False)
 
-    order_products: Mapped[list["Products"]] = relationship(back_populates="products")
+    order_items: Mapped[list["Products"]] = relationship(back_populates="products")

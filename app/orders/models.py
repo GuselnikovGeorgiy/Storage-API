@@ -11,4 +11,4 @@ class Orders(Base):
     created_at: Mapped[date] = mapped_column(Date, nullable=False)
     status: Mapped[str] = mapped_column(nullable=False)
 
-    order_products: Mapped[list["Orders"]] = relationship(back_populates="orders")
+    order_items: Mapped[list["Orders"]] = relationship(back_populates="orders")
