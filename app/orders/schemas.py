@@ -12,6 +12,5 @@ class OrderStatus(str, Enum):
 
 
 class OrderSchema(BaseModel):
-    created_at: date
     status: OrderStatus
     order_items: list[OrderItemsSchema]
