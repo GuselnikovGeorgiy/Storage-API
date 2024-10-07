@@ -14,12 +14,6 @@ class BaseDAO:
         return result.mappings().one_or_none()
 
     @classmethod
-    async def find_all(cls, session: AsyncSession, **filter_by):
-        query = select(cls.model.__table__.columns).filter_by(**filter_by)
-        result = await session.execute(query)
-        return result.mappings().all()
-
-    @classmethod
     async def select_all(cls, session: AsyncSession):
         query = select(cls.model.__table__.columns)
         result = await session.execute(query)
@@ -44,14 +38,11 @@ class BaseDAO:
         if not item:
             raise IDNotFoundException
 
-        query = update(cls.model).where(cls.model.__table__.columns.id == id).values(**data)
-        await session.execute(query)
-
-    @classmethod
-    async def delete(cls, session: AsyncSession, id: int):
-        item = await cls.find_one_or_none(session=session, id=id)
-        if not item:
-            raise IDNotFoundException
-
-        query = delete(cls.model).where(cls.model.__table__.columns.id == id)
-        await session.execute(query)
+        try:
+            query = update(cls.model).where(cls.model.__table__.columns.id == id).values(**data)
+            await session.execute(query)
+        except (SQLAlchemyError, Exception) as e:
+            if isinstance(e, SQLAlchemyError):
+                raise SQLAlchemyException
+            elif isinstance(e, Exception):
+                raise APIException
