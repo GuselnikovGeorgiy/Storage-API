@@ -10,11 +10,6 @@ router = APIRouter(
 )
 
 
-@router.post("/orders")
-async def create_order(order_data: OrderSchema):
-    return await add_order(order_data)
-
-
 @router.get("/orders")
 async def get_orders():
     async with get_db_session() as session:
@@ -41,8 +36,14 @@ async def get_order_with_items(order_id: int):
     async with get_db_session() as session:
         return await OrdersDAO.select_joined(
             session=session,
-            id=order_id
+            id=order_id,
         )
+
+
+@router.post("/orders")
+async def create_order(order_data: OrderSchema):
+    async with get_db_session() as session:
+        return await add_order(session=session, order_data=order_data)
 
 
 @router.patch("/orders/{order_id}/status")
