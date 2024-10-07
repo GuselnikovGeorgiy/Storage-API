@@ -4,12 +4,11 @@ from datetime import datetime
 import pytest
 from sqlalchemy import insert
 from app.config import settings
-from app.database import Base, engine, async_session_maker, get_db_session
+from app.database import Base, engine, get_db_session
 from app.orders.models import Orders
 from app.order_items.models import OrderItems
 from app.products.models import Products
-from fastapi.testclient import TestClient
-from httpx import AsyncClient
+from httpx import AsyncClient, ASGITransport
 from app.main import create_app
 
 
@@ -55,6 +54,5 @@ fastapi_app = create_app()
 
 @pytest.fixture(scope="function")
 async def ac():
-    async with AsyncClient(app=fastapi_app, base_url="http://test") as ac:
+    async with AsyncClient(transport=ASGITransport(app=fastapi_app), base_url="http://test") as ac:
         yield ac
-
