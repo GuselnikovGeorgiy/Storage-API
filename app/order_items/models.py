@@ -12,7 +12,6 @@ class OrderItems(Base):
     product_id: Mapped[int] = mapped_column(ForeignKey("products.id"), nullable=False)
     quantity: Mapped[int] = mapped_column(nullable=False)
 
-    # Отношения с Orders и Products через строковые ссылки
     order: Mapped["Orders"] = relationship("Orders", back_populates="order_items")
     product: Mapped["Products"] = relationship("Products", back_populates="order_items")
 
