@@ -9,6 +9,11 @@ class APIException(HTTPException):
         super().__init__(status_code=self.status_code, detail=self.detail)
 
 
+class UnprocessableEntityException(APIException):
+    status_code = status.HTTP_422_UNPROCESSABLE_ENTITY
+    detail = "Неправильный формат данных"
+
+
 class OutOfStockException(APIException):
     status_code = status.HTTP_409_CONFLICT
     detail = "Товара нет в наличии"
