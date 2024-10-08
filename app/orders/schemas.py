@@ -1,6 +1,7 @@
-from datetime import date
-from pydantic import BaseModel
 from enum import Enum
+
+from pydantic import BaseModel
+
 from app.order_items.schemas import OrderItemsSchema
 
 

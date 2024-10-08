@@ -1,7 +1,8 @@
-from sqlalchemy import insert, select, update, delete
+from sqlalchemy import insert, select, update
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.exceptions import SQLAlchemyException, APIException, IDNotFoundException
+
+from app.exceptions import APIException, IDNotFoundException, SQLAlchemyException
 
 
 class BaseDAO:
@@ -39,7 +40,11 @@ class BaseDAO:
             raise IDNotFoundException
 
         try:
-            query = update(cls.model).where(cls.model.__table__.columns.id == id).values(**data)
+            query = (
+                update(cls.model)
+                .where(cls.model.__table__.columns.id == id)
+                .values(**data)
+            )
             await session.execute(query)
         except (SQLAlchemyError, Exception) as e:
             if isinstance(e, SQLAlchemyError):

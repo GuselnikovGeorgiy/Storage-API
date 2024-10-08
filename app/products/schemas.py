@@ -1,5 +1,4 @@
 from pydantic import BaseModel, Field
-from fastapi import Query
 
 
 class ProductSchema(BaseModel):

@@ -1,7 +1,8 @@
 import pytest
+
+from app.database import get_db_session
 from app.exceptions import IDNotFoundException
 from app.products.dao import ProductsDAO
-from app.database import get_db_session
 
 
 # Тестирование delete
@@ -12,7 +13,7 @@ from app.database import get_db_session
         (1, None),
         (2, None),
         (999, IDNotFoundException),
-    ]
+    ],
 )
 async def test_delete_product(product_id: int, expected_exception: Exception | None):
     async with get_db_session() as session:

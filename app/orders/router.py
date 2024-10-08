@@ -1,9 +1,9 @@
 from fastapi import APIRouter
-from app.orders.dao import OrdersDAO
-from app.orders.schemas import OrderStatus, OrderSchema
-from app.orders.services import add_order
-from app.database import get_db_session
 
+from app.database import get_db_session
+from app.orders.dao import OrdersDAO
+from app.orders.schemas import OrderSchema, OrderStatus
+from app.orders.services import add_order
 
 router = APIRouter(
     tags=["Orders"],
@@ -25,10 +25,7 @@ async def get_orders_joined():
 @router.get("/orders/{order_id}")
 async def get_order(order_id: int):
     async with get_db_session() as session:
-        return await OrdersDAO.find_one_or_none(
-            session=session,
-            id=order_id
-        )
+        return await OrdersDAO.find_one_or_none(session=session, id=order_id)
 
 
 @router.get("/orders/{order_id}/items")
@@ -49,9 +46,4 @@ async def create_order(order_data: OrderSchema):
 @router.patch("/orders/{order_id}/status")
 async def update_order(order_id: int, status: OrderStatus):
     async with get_db_session() as session:
-        return await OrdersDAO.update(
-            session=session,
-            id=order_id,
-            status=status
-        )
-
+        return await OrdersDAO.update(session=session, id=order_id, status=status)

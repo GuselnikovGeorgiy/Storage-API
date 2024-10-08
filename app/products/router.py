@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+
 from app.database import get_db_session
 from app.products.dao import ProductsDAO
 from app.products.schemas import ProductSchema
@@ -26,10 +27,7 @@ async def get_products():
 @router.get("/products/{product_id}")
 async def get_product(product_id: int):
     async with get_db_session() as session:
-        return await ProductsDAO.find_one_or_none(
-            session=session,
-            id=product_id
-        )
+        return await ProductsDAO.find_one_or_none(session=session, id=product_id)
 
 
 @router.put("/products/{product_id}")

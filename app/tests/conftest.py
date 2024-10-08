@@ -1,15 +1,17 @@
 import asyncio
 import json
 from datetime import datetime
+
 import pytest
+from httpx import ASGITransport, AsyncClient
 from sqlalchemy import insert
+
 from app.config import settings
 from app.database import Base, engine, get_db_session
-from app.orders.models import Orders
-from app.order_items.models import OrderItems
-from app.products.models import Products
-from httpx import AsyncClient, ASGITransport
 from app.main import create_app
+from app.order_items.models import OrderItems
+from app.orders.models import Orders
+from app.products.models import Products
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -54,5 +56,7 @@ fastapi_app = create_app()
 
 @pytest.fixture(scope="function")
 async def ac():
-    async with AsyncClient(transport=ASGITransport(app=fastapi_app), base_url="http://test") as ac:
+    async with AsyncClient(
+        transport=ASGITransport(app=fastapi_app), base_url="http://test"
+    ) as ac:
         yield ac

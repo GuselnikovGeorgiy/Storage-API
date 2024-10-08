@@ -1,4 +1,5 @@
-from sqlalchemy.orm import relationship, mapped_column, Mapped
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from app.database import Base
 
 
@@ -12,7 +13,9 @@ class Products(Base):
     available_stock: Mapped[int] = mapped_column(nullable=False)
 
     order_items: Mapped[list["OrderItems"]] = relationship(
-        "OrderItems", back_populates="product", cascade="all, delete, delete-orphan",
+        "OrderItems",
+        back_populates="product",
+        cascade="all, delete, delete-orphan",
     )
 
 

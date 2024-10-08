@@ -1,7 +1,7 @@
 import pytest
 
 from app.database import get_db_session
-from app.exceptions import SQLAlchemyException, IDNotFoundException
+from app.exceptions import IDNotFoundException, SQLAlchemyException
 from app.orders.dao import OrdersDAO
 from app.products.dao import ProductsDAO
 
@@ -11,7 +11,9 @@ from app.products.dao import ProductsDAO
 @pytest.mark.parametrize(
     "order_id, is_exist",
     [
-        (1, True), (2, True), (100, False),
+        (1, True),
+        (2, True),
+        (100, False),
     ]
 )
 async def test_get_order_by_id(order_id: int, is_exist: bool):
